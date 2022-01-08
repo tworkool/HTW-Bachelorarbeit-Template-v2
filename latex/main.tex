@@ -1,0 +1,322 @@
+% Name und persönliche Daten nur auf DECKBLATT und EIDESSTATTLICHER ERKLÄRUNG
+% DECKBLATT, SPERRVERMERK, VORWORT ohne Seitenzahlen
+% INHALTSVERZ., AUFGABENSTELLUNG, VERZEICHNISSE römische Nummerierung (I, II, III)
+% ALLES ANDERE arabisch (1, 2, 3)
+
+% DIN A4
+% Oben 		= 2,5 cm
+% Unten 	= 2,5 cm
+% Links 	= 3,0 cm
+% Rechts 	= 2,5 cm
+
+% Arial 11pt, Times New Roman 12pt
+% Zeilenabstand: einfach -1.5
+% Blocksatz mit Silbentrennung
+% Überschriften im Text abheben (fett oder so)
+% Zitierstil: IEEE
+% Bild 1: <Beschreibung> (unten)
+% Tabelle 1: <Beschreibung> (oben)
+% caption links und label in caption Fett!
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BIBLIOTHEKEN %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,12pt,headsepline]{scrartcl}
+
+\usepackage[utf8]{inputenc} 	% utf-8 encoding
+\usepackage{graphicx} 			% Grafiken
+\usepackage[ngerman]{babel} 	% deutsch als Hauptsprache
+\usepackage[right]{eurosym} 	% Eurozeichen
+\usepackage{fontspec} 			% Zeichenencoding
+\usepackage{lmodern}			% flüssigere Schrift
+\usepackage{longtable} 			% mehrseitige Tabellen
+\usepackage[left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm,includeheadfoot]{geometry}
+								% Seitenränder
+\usepackage{fancybox} 			% Paket für Boxen im Text
+\usepackage{url} 				% bricht lange URLs "schön" um
+\usepackage[dvipsnames,table]{xcolor}	% Textfarben (dvipsnames = mehr farben!)
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+								% Mathe Formeln, Zeichen etc.
+\usepackage[hidelinks]{hyperref} 			% erzeugt Inhaltsverzeichnis mit Querverweisen zu den Abschnitten (PDF Version)
+\usepackage{fancyhdr} 			% Kopf- Fußzeilen
+%\usepackage{array} 			% für Tabellen
+\usepackage[onehalfspacing]{setspace} 
+								% Paket für Zeilenabstand
+\usepackage{caption}			% extended captions (fettes label)
+\usepackage{makeidx} 			% extended index
+\usepackage[newfloat]{minted} 			% code Blöcke
+\usepackage[backend=biber, sorting=none, citestyle=ieee]{biblatex}
+
+\usepackage[german]{nomencl}
+\usepackage{acronym}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{float}				% Bilder mit [H] genau dort einordnen wo sie hin sollen
+%\usepackage{dblfloatfix}
+%\usepackage[titles]{tocloft} 	% Für Formeln und Formelverzeichnis
+%\usepackage{floatflt} 			% floatende Bilder ermöglichen
+\usepackage{booktabs}			% Toprule etc.
+\usepackage{subcaption}			% Bilder nebeneinander
+\usepackage{tocloft}			% for cftdot command
+\usepackage[export]{adjustbox}	% adjust alignment for images
+\usepackage{pdfpages}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% EINSTELLUNGEN %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{ {abb/} }
+
+%% no dots in toc
+%\renewcommand{\cftdot}{}
+
+%% for dots
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % for sections
+%\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % for chapters
+%\renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}} % for parts
+
+%% Sektion Einstellungen
+%\titleformat{\section}
+%{\normalfont\sffamily\huge\bfseries\color{black}}
+%{\thesection}{20pt}{\Huge}
+%\titleformat{\subsection}
+%{\normalfont\sffamily\huge\bfseries\color{black}}
+%{\thesubsection}{20pt}{\Huge}
+
+%% Sektions gleicher Font wie Text
+\addtokomafont{disposition}{\rmfamily}
+\setkomafont{title}{\huge\bfseries}
+\addtokomafont{titlehead}{\LARGE\centering}
+
+% label in captions fett, caption links aligned! 
+\captionsetup{labelfont=bf, justification=raggedright, singlelinecheck=false}
+
+% Pfad für bilder setzen
+%\graphicspath{./abb/}
+
+% Neuer Absatz ohne Ausrückung
+\setlength{\parindent}{0pt}
+%\geometry{left=3cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% Farben definieren für CODE
+\definecolor{codeGreenDark}{HTML}{1f9109}
+\definecolor{codeGreenMint}{HTML}{00e061}
+\definecolor{codeGray}{HTML}{a3a3a3}
+\definecolor{codePurple}{HTML}{c247ff}
+\definecolor{codeOrange}{HTML}{e39b00}
+\definecolor{codeDarkGray}{HTML}{303030}
+\definecolor{codeBgColor}{HTML}{f2f2f2}
+
+\definecolor{imageFrameGray}{HTML}{bfbfbf}
+
+% Farben Table
+\definecolor{tableHeadColor}{HTML}{e0e0e0}
+\definecolor{tableRowColor}{HTML}{f0f0f0}
+
+% Farben definieren für TEXT
+\definecolor{txtRed}{HTML}{ff0000}
+\definecolor{applegreen}{rgb}{0.55, 0.71, 0.0}
+\definecolor{safetyorange}{rgb}{1.0, 0.4, 0.0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% SYMBOLVERZEICHNIS %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Punkte zw. Abkürzung und Erklärung
+\setlength{\nomlabelwidth}{.20\hsize}
+\renewcommand{\nomlabel}[1]{#1 \dotfill}
+% Zeilenabstände verkleinern
+\setlength{\nomitemsep}{-\parsep}
+
+
+%% eigene Kopfzeilen und Fußzeilen
+\fancypagestyle{contents}{%
+	\fancyhf{} 								% alle Kopf- und Fußzeilenfelder bereinigen
+	\fancyhead[L]{\nouppercase{\leftmark}} 	% Kopfzeile links
+	\fancyhead[C]{} 						% zentrierte Kopfzeile
+	\fancyhead[R]{\thepage} 				% Kopfzeile rechts
+	\renewcommand{\headrulewidth}{0.4pt} 	% obere Trennlinie
+} % eigener Seitenstil für Inhalte
+
+\fancypagestyle{preamble}{%
+	\fancyhf{} 								% alle Kopf- und Fußzeilenfelder bereinigen
+	\fancyhead{} 							% keine Kopfzeile
+	\fancyfoot[C]{\thepage} 				% Kopfzeile rechts
+	\renewcommand{\headrulewidth}{0pt} 	% obere Trennlinie
+} % eigener Seitenstil für Preambles
+
+%%\bibliographystyle{IEEEtran}
+% Bibliographie
+\addbibresource{ref.bib}
+\bibliography{ref}
+
+% Inhaltsverzeichnis
+\makeindex
+
+% Abkürzungsverzeichnis LiveTex Version
+\makenomenclature
+
+%% table of contents setup
+%\setlength\cftparskip{\tocspacing}
+\setlength\cftbeforesecskip{0pt}
+%\setlength\cftaftertoctitleskip{2pt}
+
+%\newcommand{\indexesspacing}{\cftbeforesecskip}
+\newcommand{\indexesspacing}{\cftbeforesecskip}
+
+\setlength\cftbeforesubsecskip{\indexesspacing}
+\setlength\cftbeforesubsubsecskip{\indexesspacing}
+\setlength\cftbeforefigskip{\indexesspacing}
+%\setlength\cftbeforesubfigskip{\indexesspacing}
+\setlength\cftbeforetabskip{\indexesspacing}
+%\setlength\cftbeforesubtabskip{\indexesspacing}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% LISTINGS/CODE SETUP %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{code}{\captionsetup{type=listing}}{}
+\SetupFloatingEnvironment{listing}{name=Quellcode, listname=Quellcodeverzeichnis}
+
+%\renewcommand{\listoflistings}{%
+%	\cleardoublepage
+%	\addcontentsline{toc}{chapter}{\listoflistingscaption}%
+%	\listof{listing}{\listoflistingscaption}%
+%}
+
+\begin{document}
+	\input{vars}
+	\rowcolors{1}{tableRowColor}{}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%% DECKBLATT %%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\pagestyle{empty}
+	
+	\singlespacing
+	\input{pages/0_deckblatt}
+	\newpage
+	\onehalfspacing
+	
+	\textcolor{gray}{\textit{Diese Seite wurde absichtlich frei gelassen}}
+	\begin{verbatim}
+	\end{verbatim}
+	\newpage
+	
+	%Vorwort
+	\input{pages/vorwort}
+	\newpage
+	
+	%Sperrvermerk
+	\input{pages/sperrvermerk}
+	\newpage
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%% VERZEICHNISSE %%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\pagestyle{preamble}
+	
+	% Inhaltsverzeichnis
+	\setcounter{page}{1}
+	\pagenumbering{Roman}
+	\tableofcontents
+	\newpage
+	
+	% Abbildungsverzeichnis
+	\addcontentsline{toc}{section}{Abbildungsverzeichnis}
+	\listoffigures
+	\newpage
+	
+	% Tabellenverzeichnis
+	\addcontentsline{toc}{section}{Tabellenverzeichnis}
+	\listoftables
+	\newpage
+	
+	%	% Formelverzeichnis
+	%	\addcontentsline{toc}{section}{Formelverzeichnis}
+	%	\newcommand{\listequationsname}{Formelverzeichnis}
+	%	\newlistof{myequations}{equ}{\listequationsname}
+	%	\newcommand{\myequations}[1]{%
+	%		\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+	%	\listofmyequations
+	%	\newpage
+	
+	% Quellcodeausschnittverzeichnis
+	\addcontentsline{toc}{section}{Quellcodeverzeichnis}
+%	\listoflistings
+	\listof{listing}{Quellcodeverzeichnis}
+	\newpage
+
+	
+	% Abkürzungsverzeichnis
+	\section*{Abkürzungsverzeichnis}\label{abkuerzung}
+	\addcontentsline{toc}{section}{Abkürzungsverzeichnis}
+	% \acro{kürzel}[kurzform]{langform}
+	\input{abk}
+	\newpage
+	
+%	% Symbolverzeichnis
+%	\addcontentsline{toc}{section}{Symbolverzeichnis}
+%	\input{symb}
+%	\printnomenclature
+%	\newpage
+
+	% Glossar
+	\addcontentsline{toc}{section}{Glossar}
+	\input{pages/glossar}
+	\newpage
+	
+	\addcontentsline{toc}{section}{Abstract}
+	\input{pages/abstract}
+	\newpage
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%% HAUPTTEIL %%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\pagestyle{contents}
+	
+	\renewcommand{\sectionmark}[1]{\markright{#1}}
+	%\lhead{\fancyplain{}{\rightmark }}
+	\fancyhead[L]{\nouppercase{\leftmark}}
+	\pagenumbering{arabic}
+	
+%	\fancyhead[L]{Einleitung}
+%	\input{pages/2_einleitung}
+%	\newpage
+%
+%	\input{pages/3_hauptteil}
+%	\newpage
+%	
+%	\fancyhead[L]{Zusammenfassung und Ausblick}
+%	\input{pages/4_zusammenfassung}
+%	\newpage
+
+	\input{pages/inhalt}
+	\newpage
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%% LITERATURVERZEICHNIS %%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\addcontentsline{toc}{section}{Literaturverzeichnis}
+	\renewcommand\refname{Literaturverzeichnis}
+	\fancyhead[L]{Literaturverzeichnis}
+	\printbibliography
+	\newpage
+	
+	%	 Anhang
+	\newpage
+	\addcontentsline{toc}{section}{Anhang}
+	\fancyhead[L]{Anhang} %Kopfzeile links
+	\input{pages/anhang}
+	
+	% Eidesstattliche Erklärung
+	\newpage
+	\addcontentsline{toc}{section}{Eidesstattliche Erklärung}
+	\input{pages/eid_erkl}
+	
+\end{document}
