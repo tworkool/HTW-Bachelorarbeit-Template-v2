@@ -27,12 +27,14 @@
 	{\bfseries\small\texttt{#1}}
 }
 
-\newcommand{\codefull}[4]{
+% zweite eckige klammer ist optionales Argument #1 und ist standardmäßig frei. 
+% Wird benutzt für weitere optionen für \inputminted
+\newcommand{\codefull}[5][]{
 	\begin{code}
-		\captionof{listing}{#2}
-		\label{#1}
-		\inputminted[breaklines, bgcolor=codeBgColor, linenos]{#3}{#4}
-%		\caption{#2}
+		\captionof{listing}{#3}
+		\label{#2}
+		\inputminted[breaklines, bgcolor=codeBgColor, linenos, #1]{#4}{#5}
+		%		\caption{#2}
 	\end{code}
 }
 
